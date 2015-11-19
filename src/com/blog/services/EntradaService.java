@@ -11,8 +11,13 @@ import com.blog.entidades.Usuario;
 import com.blog.util.Conexion;
 
 //Service
+
 public class EntradaService {
 
+
+	/**
+	DEVUELVE TODAS LAS ENTRADAS DISPONIBLES EN EL BLOG
+	**/
 	public static List<Entrada> listarEntradas() {
 		ArrayList<Entrada> entradas = new ArrayList<Entrada>();
 		Connection conexion = Conexion.getConexion();
@@ -37,6 +42,10 @@ public class EntradaService {
 		return entradas;
 	}
 
+
+	/**
+	PERSISTE UNA NUEVA ENTRADA EN EL BLOG
+	**/
 	public static void guardarEntrada(Entrada entrada) {
 
 		try {
@@ -59,6 +68,9 @@ public class EntradaService {
 
 	}
 
+	/**
+	ELIMINA UNA ENTRADA DEL BLOG
+	**/
 	public static void eliminarEntrada(String id, Usuario usuarioSesion) {
 		try {
 
