@@ -20,7 +20,6 @@
 .espacio {
 	margin-bottom: 6%;
 }
-
 </style>
 </head>
 
@@ -65,14 +64,21 @@
 			<a type="button" class="btn btn-default pull-left "
 				href="inicio?operacion=listar"> <span
 				class="glyphicon glyphicon-home" aria-hidden="true"></span>
-			</a> Bienvenido al blog 
+			</a> Bienvenido al blog
 			<!-- Trigger para el modal -->
-			<button type="button" class="btn btn-default  pull-right"
-				data-toggle="modal" data-target="#publicacion" onclick="limpiar()">
-				<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-				Publicar
-			</button>
-
+			<c:if test="${not empty usuario}">
+				<button type="button" class="btn btn-default  pull-right"
+					data-toggle="modal" data-target="#publicacion" onclick="limpiar()">
+					<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+					Publicar
+				</button>
+			</c:if>
+			<c:if test="${empty usuario}">
+				<a type="button" class="btn btn-default pull-right " href="login">
+					<span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+					Iniciar sesión
+				</a>
+			</c:if>
 		</h2>
 
 		<!-- Seccion para la publicacion de nuevas entradas -->
@@ -98,6 +104,18 @@
 								<textarea class="form-control" rows="3" id="descripcion"
 									name="descripcion"></textarea>
 							</div>
+							<!--  CATEGORIAS -->
+							<div class="form-group">
+								<label for="sel1">Seleccionar categoria:</label> <select
+									class="form-control" id="" name="cat">
+									<c:forEach items="${listaCategorias}" var="categoria">
+										<option value="${categoria.id}">${categoria.nombre}</option>
+									</c:forEach>
+								</select> <br>
+
+							</div>
+							<!-- FIN DE LAS CATEGORIAS -->
+
 						</form>
 					</div>
 					<div class="modal-footer">
@@ -130,9 +148,18 @@
 					</button>
 				</c:if>
 				<div class="panel-heading">
-					<h2 class="panel-title">${entrada.titulo}</h2>
+
+					<c:forEach items="${listaCategorias}" var="cate">
+						<c:if test="${entrada.idCategoria == cate.id}">
+							<h2 class="panel-title">${cate.nombre}</h2>
+						</c:if>
+					</c:forEach>
+
+
 				</div>
 				<div class="panel-body">
+					<b class="">Titulo: ${entrada.titulo}</b>
+					<hr>
 					<p>${entrada.descripcion}</p>
 				</div>
 				<div class="panel-footer">

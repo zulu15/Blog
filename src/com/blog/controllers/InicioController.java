@@ -2,14 +2,18 @@ package com.blog.controllers;
 
 import java.io.IOException;
 import java.util.List;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import com.blog.entidades.Categoria;
 import com.blog.entidades.Entrada;
 import com.blog.entidades.Usuario;
+import com.blog.services.CategoriaService;
 import com.blog.services.EntradaService;
 
 @WebServlet(name = "/entradas", urlPatterns = { "/inicio" })
@@ -22,6 +26,10 @@ public class InicioController extends HttpServlet {
 		// Muestro las entradas y envio al usuario a la pagina de inicio
 		List<Entrada> entradass = EntradaService.listarEntradas();
 		request.setAttribute("entradas", entradass);
+
+		// Guardo las categorias
+		List<Categoria> categorias = CategoriaService.listarCategorias();
+		request.setAttribute("listaCategorias", categorias);
 
 		// Obtengo las operaciones enviadas a traves del metodo GET con Ajax
 		String operacion = request.getParameter("operacion");
@@ -151,8 +159,10 @@ public class InicioController extends HttpServlet {
 		String descripcionEntrada = request.getParameter("descripcion");
 		// Obtengo el email del autor de la entrada
 		String emailAutor = request.getParameter("email");
-		Entrada entrada = new Entrada(tituloEntrada, descripcionEntrada, emailAutor, getCurrentDate(), 5);
-		return entrada;
+		// Obtengo la categoria a la que pertenece la publicacion
+		String idCat = request.getParameter("cat");
+
+		return new Entrada(tituloEntrada, descripcionEntrada, emailAutor, getCurrentDate(), Long.parseLong(idCat));
 	}
 
 	private static java.sql.Date getCurrentDate() {

@@ -33,6 +33,7 @@ public class EntradaService {
 				entrada.setFecha(rs.getDate("ent_fecha"));
 				entrada.setDescripcion(rs.getString("ent_descripcion"));
 				entrada.setTitulo(rs.getString("ent_titulo"));
+				entrada.setIdCategoria(rs.getLong("ent_cat_id"));
 				entradas.add(entrada);
 			}
 		} catch (SQLException e) {

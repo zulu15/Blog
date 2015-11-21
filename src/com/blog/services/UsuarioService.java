@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.blog.entidades.Categoria;
 import com.blog.entidades.Usuario;
 import com.blog.util.Conexion;
 
@@ -120,6 +121,8 @@ public class UsuarioService {
 		}
 
 	}
+
+
 
 
 
