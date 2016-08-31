@@ -7,7 +7,7 @@ import java.sql.SQLException;
 public class Conexion {
 	// CONSTANTES PARA LA CONEXION
 	private static final String USUARIO = "root";
-	private static final String PASSWORD = "";
+	private static final String PASSWORD = "root";
 	private static final String DRIVER = "com.mysql.jdbc.Driver";
 	private static final String HOST = "jdbc:mysql://localhost/blog?zeroDateTimeBehavior=convertToNull";
 	// Utilizamos singleton para la conexion

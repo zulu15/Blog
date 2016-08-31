@@ -164,7 +164,8 @@
 				</div>
 				<div class="panel-footer">
 					<strong>Fecha de publicacion: ${entrada.fecha}</strong> <span
-						class="pull-right">Autor: <a>${entrada.emailUsuario}</a></span>
+						class="pull-right">Autor: <a
+						href="${pageContext.request.contextPath}/profile?user=${entrada.emailUsuario}">${entrada.emailUsuario}</a></span>
 				</div>
 			</div>
 			<div class="espacio"></div>

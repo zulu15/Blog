@@ -43,7 +43,35 @@ public class EntradaService {
 		return entradas;
 	}
 
+	
+	public static List<Entrada> listarEntradas(String usuarioEmail) {
+		ArrayList<Entrada> entradas = new ArrayList<Entrada>();
+		Connection conexion = Conexion.getConexion();
+		String sql = "SELECT DISTINCT * FROM entrada , usuario WHERE ent_usr_email = ? GROUP BY ent_id DESC";
+		try {
+			PreparedStatement pst = conexion.prepareStatement(sql);
+			pst.setString(1, usuarioEmail);
+			ResultSet rs = pst.executeQuery();
+			Entrada entrada = null;
+			while (rs.next()) {
+				entrada = new Entrada();
+				entrada.setId(rs.getLong("ent_id"));
+				entrada.setEmailUsuario(rs.getString("ent_usr_email"));
+				entrada.setFecha(rs.getDate("ent_fecha"));
+				entrada.setDescripcion(rs.getString("ent_descripcion"));
+				entrada.setTitulo(rs.getString("ent_titulo"));
+				entrada.setIdCategoria(rs.getLong("ent_cat_id"));
+				entradas.add(entrada);
+			}
+		} catch (SQLException e) {
+			System.err.println("Error listando las entradas (" + e + ")");
+		}
 
+		return entradas;
+	}
+
+	
+	
 	/**
 	PERSISTE UNA NUEVA ENTRADA EN EL BLOG
 	**/
